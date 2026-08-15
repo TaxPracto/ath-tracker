@@ -92,12 +92,12 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   before deploy (gate + filters + sort assertions; preset localStorage 'ath_ok'='1' because
   jsdom lacks crypto.subtle).
 - 3M/6M return columns (series_metrics _ret helper) in page + xlsx.
-- Passcode gate: SHA-256 hash baked into page; passcode = ATH_PASSCODE env or fallback
-  "highfive" in build_page.py (case-insensitive). localStorage 'ath_ok' remembers. HONEST
-  LIMIT: repo is public, so the fallback passcode is readable in source — it is a curtain,
-  not a lock. Real lock = Cloudflare Pages + Access (backlog).
-- Analytics: GoatCounter snippet -> https://athradar.goatcounter.com (Ashwani must register
-  code "athradar" at goatcounter.com; until then the snippet no-ops). Shows visits/paths/geo.
+- Passcode gate + GoatCounter analytics were built, DISCUSSED, and REMOVED at Ashwani's
+  explicit choice (2026-08-15): privacy model = unlisted URL, no tracking. Do NOT re-add
+  either without asking him. Real lock if ever wanted = Cloudflare Pages + Access (backlog).
+- PROCESS RULE from the same discussion: for feature decisions beyond the literal ask
+  (access control, analytics, anything user-facing that he didn't specify), DISCUSS OPTIONS
+  FIRST, build after he picks. He said: "why do you build directly, discuss with me."
 
 ## Backlog (discussed, not built)
 SME corporate-action adjustment (splits create false ATH-misses); BE-series mainboard names;

@@ -2,12 +2,10 @@
 """Generate docs/index.html from state. Placeholder .replace() template — no f-string braces.
 v2: sortable headers, search, board/entered/mcap pills, sector select, NEW toggle, live count.
 JS is a plain string: NO backslashes, NO regex literals (see CLAUDE.md pitfalls)."""
-import hashlib, json, os
+import json, os
 from datetime import datetime
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PASSCODE = os.environ.get("ATH_PASSCODE", "highfive")  # friends' passcode, case-insensitive.
-# Rotate: edit fallback here, or set ATH_PASSCODE env in the workflow's "Run screen" step.
 
 TPL = """<!DOCTYPE html>
 <html lang="en"><head>
@@ -56,19 +54,7 @@ tr.new td{background:var(--greenbg)}
 .footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
 a.dl{color:var(--blue)}
 @media(max-width:980px){.hide-m{display:none}}
-#gate{position:fixed;inset:0;background:var(--bg);z-index:99;display:flex;align-items:center;justify-content:center}
-#gate .gbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:28px 30px;text-align:center;max-width:340px}
-#gate h3{font-family:Fraunces,serif;margin:0 0 10px;font-size:22px}
-#gate input{border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:15px;font-family:inherit;width:100%;text-align:center;margin:8px 0}
-#gate button{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:14px;cursor:pointer;font-family:inherit}
-#gate .err{color:var(--red);font-size:12.5px;min-height:18px;margin-top:6px}
-</style>
-<script data-goatcounter="https://athradar.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-</head><body>
-<div id="gate"><div class="gbox"><h3>ATH Radar</h3>
-<div class="small">This is a private research page.<br>Enter the passcode.</div>
-<input id="gpw" type="password" autocomplete="off">
-<button id="gbtn">Enter</button><div class="err" id="gerr"></div></div></div>
+</style></head><body>
 <div class="wrap">
 <h1>ATH Radar</h1>
 <div class="sub">Stocks within 2% of their all-time high, with all-time-high trailing profits, beating the market and their sector — market cap Rs 1,000–20,000 Cr. Sorted by newest arrival at the high.</div>
@@ -127,26 +113,6 @@ __ROWS__
 This is a factual screen for research and education. It is not investment advice and not a recommendation to buy or sell anything.</div>
 </div>
 <script>
-// ---- passcode gate (curtain, not a vault - see Methodology/CLAUDE.md) ----
-var GATE_HASH = '__GATEHASH__';
-var gateEl = document.getElementById('gate');
-function unlockGate(){ gateEl.style.display = 'none'; }
-function hexOf(buf){
-  var a = Array.prototype.slice.call(new Uint8Array(buf));
-  return a.map(function(x){ return ('0' + x.toString(16)).slice(-2); }).join('');
-}
-function tryGate(){
-  var pw = document.getElementById('gpw').value;
-  var enc = new TextEncoder().encode(pw.trim().toLowerCase());
-  crypto.subtle.digest('SHA-256', enc).then(function(h){
-    if (hexOf(h) === GATE_HASH){ try{ localStorage.setItem('ath_ok', '1'); }catch(e){} unlockGate(); }
-    else { document.getElementById('gerr').textContent = 'wrong passcode'; }
-  });
-}
-try{ if (localStorage.getItem('ath_ok') === '1') unlockGate(); }catch(e){}
-document.getElementById('gbtn').addEventListener('click', tryGate);
-document.getElementById('gpw').addEventListener('keydown', function(e){ if (e.key === 'Enter') tryGate(); });
-// ---- table ----
 var rows = Array.prototype.slice.call(document.querySelectorAll('#tbl tbody tr'));
 var state = {q:'', board:'All', days:0, mcap:'All', sec:'All', newonly:false};
 function apply(){
@@ -310,9 +276,7 @@ def build(state):
                     if dropped else '<span class="sub">None.</span>' if state.get("had_previous")
                     else '<span class="sub">First run — nothing to compare against yet.</span>')
 
-    gate_hash = hashlib.sha256(PASSCODE.strip().lower().encode()).hexdigest()
-    html = (TPL.replace("__GATEHASH__", gate_hash)
-            .replace("__FUNNEL__", funnel)
+    html = (TPL.replace("__FUNNEL__", funnel)
             .replace("__ASOF__", state["asof"])
             .replace("__GENERATED__", datetime.now().strftime("%d %b %Y, %H:%M IST"))
             .replace("__BENCH__", bench)
