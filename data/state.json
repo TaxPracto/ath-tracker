@@ -4,8 +4,8 @@
  "funnel": {
   "mainboard": 2378,
   "sme": 1014,
-  "ath_zone": 181,
-  "outperforming": 174,
+  "ath_zone": 172,
+  "outperforming": 169,
   "pat_at_ath": 103,
   "final": 51
  },
@@ -38,6 +38,7 @@
    "window_days": 365,
    "stock_ret": 156.79,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -51,6 +52,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -86,6 +88,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -109,6 +112,7 @@
    "window_days": 365,
    "stock_ret": 94.78,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -122,6 +126,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -157,6 +162,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Auto",
    "sector_ret": 21.1,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -192,6 +198,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -215,6 +222,7 @@
    "window_days": 365,
    "stock_ret": 68.75,
    "truncated_history": false,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -228,6 +236,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -263,6 +272,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -298,6 +308,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.2,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -321,6 +332,7 @@
    "window_days": 365,
    "stock_ret": 31.69,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -334,6 +346,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -369,6 +382,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty FMCG",
    "sector_ret": -11.05,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -404,6 +418,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -439,6 +454,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -474,6 +490,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -509,6 +526,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -544,6 +562,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -579,6 +598,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -602,6 +622,7 @@
    "window_days": 365,
    "stock_ret": 63.94,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -615,6 +636,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -650,6 +672,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.7,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -685,6 +708,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -708,6 +732,7 @@
    "window_days": 365,
    "stock_ret": 176.04,
    "truncated_history": false,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -721,6 +746,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -744,6 +770,7 @@
    "window_days": 365,
    "stock_ret": 137.56,
    "truncated_history": false,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -757,6 +784,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -792,6 +820,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -827,6 +856,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Auto",
    "sector_ret": 21.1,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -862,6 +892,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Financial Services",
    "sector_ret": -0.45,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -897,6 +928,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -932,6 +964,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -967,6 +1000,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1002,6 +1036,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1037,6 +1072,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1072,6 +1108,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1107,6 +1144,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1142,6 +1180,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1177,6 +1216,43 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
+   "is_new": false
+  },
+  {
+   "symbol": "KRISHANA",
+   "name": "Krishana Phoschem Limited",
+   "board": "Main",
+   "exch": "NSE",
+   "scr_slug": "KRISHANA",
+   "t2t": false,
+   "nse_industry": null,
+   "last_close": 190.68,
+   "last_date": "2026-08-14",
+   "ath": 190.68,
+   "ret_3m": 42.37,
+   "ret_6m": 86.03,
+   "ath_date": "2026-08-14",
+   "pct_from_ath": 0.0,
+   "zone_entry": "2026-08-10",
+   "days_in_zone": 5,
+   "anchor_date": "2025-08-14",
+   "window_days": 365,
+   "stock_ret": 75.11,
+   "n500_ret": 4.03,
+   "ntm_ret": 4.42,
+   "sme_ret": null,
+   "mcap": 5895.0,
+   "pe": 30.0,
+   "basis": "standalone",
+   "reporting": "quarterly",
+   "ttm_pat": 196.0,
+   "prior_peak_pat": 180.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1212,6 +1288,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1247,6 +1324,43 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
+   "is_new": false
+  },
+  {
+   "symbol": "COMSYN",
+   "name": "Commercial Syn Bags Limited",
+   "board": "Main",
+   "exch": "NSE",
+   "scr_slug": "COMSYN",
+   "t2t": false,
+   "nse_industry": null,
+   "last_close": 288.33,
+   "last_date": "2026-08-14",
+   "ath": 288.33,
+   "ret_3m": 88.4,
+   "ret_6m": 58.46,
+   "ath_date": "2026-08-14",
+   "pct_from_ath": 0.0,
+   "zone_entry": "2026-08-07",
+   "days_in_zone": 6,
+   "anchor_date": "2025-08-14",
+   "window_days": 365,
+   "stock_ret": 103.74,
+   "n500_ret": 4.03,
+   "ntm_ret": 4.42,
+   "sme_ret": null,
+   "mcap": 1163.0,
+   "pe": 39.2,
+   "basis": "consolidated",
+   "reporting": "quarterly",
+   "ttm_pat": 29.7,
+   "prior_peak_pat": 28.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1270,6 +1384,7 @@
    "window_days": 365,
    "stock_ret": 100.58,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -1283,6 +1398,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1318,6 +1434,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1353,41 +1470,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": false
-  },
-  {
-   "symbol": "COMSYN",
-   "name": "Commercial Syn Bags Limited",
-   "board": "Main",
-   "exch": "NSE",
-   "scr_slug": "COMSYN",
-   "t2t": false,
-   "nse_industry": null,
-   "last_close": 288.33,
-   "last_date": "2026-08-14",
-   "ath": 288.33,
-   "ret_3m": 88.4,
-   "ret_6m": 58.46,
-   "ath_date": "2026-08-14",
-   "pct_from_ath": 0.0,
-   "zone_entry": "2026-08-04",
-   "days_in_zone": 9,
-   "anchor_date": "2025-08-14",
-   "window_days": 365,
-   "stock_ret": 103.74,
-   "n500_ret": 4.03,
-   "ntm_ret": 4.42,
-   "sme_ret": null,
-   "mcap": 1163.0,
-   "pe": 39.2,
-   "basis": "consolidated",
-   "reporting": "quarterly",
-   "ttm_pat": 29.7,
-   "prior_peak_pat": 28.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1423,6 +1506,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.7,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1458,6 +1542,43 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
+   "is_new": false
+  },
+  {
+   "symbol": "DRAGARWQ",
+   "name": "Dr Agarwals Eye Hospital Limited",
+   "board": "Main",
+   "exch": "NSE",
+   "scr_slug": "DRAGARWQ",
+   "t2t": false,
+   "nse_industry": null,
+   "last_close": 5403.0,
+   "last_date": "2026-08-14",
+   "ath": 5418.0,
+   "ret_3m": 6.85,
+   "ret_6m": null,
+   "ath_date": "2026-08-13",
+   "pct_from_ath": -0.28,
+   "zone_entry": "2026-08-04",
+   "days_in_zone": 9,
+   "anchor_date": "2026-04-20",
+   "window_days": 116,
+   "stock_ret": 12.85,
+   "n500_ret": 3.19,
+   "ntm_ret": 3.72,
+   "sme_ret": null,
+   "mcap": 2611.0,
+   "pe": 34.3,
+   "basis": "standalone",
+   "reporting": "quarterly",
+   "ttm_pat": 75.0,
+   "prior_peak_pat": 70.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1475,8 +1596,8 @@
    "ret_6m": 56.02,
    "ath_date": "2026-08-12",
    "pct_from_ath": -0.23,
-   "zone_entry": "2026-08-03",
-   "days_in_zone": 10,
+   "zone_entry": "2026-07-31",
+   "days_in_zone": 11,
    "anchor_date": "2025-08-14",
    "window_days": 365,
    "stock_ret": 96.9,
@@ -1493,6 +1614,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1510,8 +1632,8 @@
    "ret_6m": 65.4,
    "ath_date": "2026-08-11",
    "pct_from_ath": -0.26,
-   "zone_entry": "2026-08-03",
-   "days_in_zone": 10,
+   "zone_entry": "2026-07-31",
+   "days_in_zone": 11,
    "anchor_date": "2025-11-28",
    "window_days": 259,
    "stock_ret": 42.81,
@@ -1528,6 +1650,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Chemicals",
    "sector_ret": 6.68,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1546,7 +1669,7 @@
    "ath_date": "2026-08-14",
    "pct_from_ath": 0.0,
    "zone_entry": "2026-07-29",
-   "days_in_zone": 12,
+   "days_in_zone": 13,
    "anchor_date": "2025-08-14",
    "window_days": 365,
    "stock_ret": 120.9,
@@ -1563,6 +1686,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1581,7 +1705,7 @@
    "ath_date": "2026-08-13",
    "pct_from_ath": -0.81,
    "zone_entry": "2026-07-28",
-   "days_in_zone": 13,
+   "days_in_zone": 14,
    "anchor_date": "2026-03-19",
    "window_days": 148,
    "stock_ret": 46.35,
@@ -1598,6 +1722,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1633,6 +1758,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1656,6 +1782,7 @@
    "window_days": 365,
    "stock_ret": 32.63,
    "truncated_history": true,
+   "corp_flag": false,
    "n500_ret": 4.03,
    "ntm_ret": 4.42,
    "sme_ret": -3.8,
@@ -1669,41 +1796,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": false
-  },
-  {
-   "symbol": "KRISHANA",
-   "name": "Krishana Phoschem Limited",
-   "board": "Main",
-   "exch": "NSE",
-   "scr_slug": "KRISHANA",
-   "t2t": false,
-   "nse_industry": null,
-   "last_close": 190.68,
-   "last_date": "2026-08-14",
-   "ath": 190.68,
-   "ret_3m": 42.37,
-   "ret_6m": 86.03,
-   "ath_date": "2026-08-14",
-   "pct_from_ath": 0.0,
-   "zone_entry": "2026-07-23",
-   "days_in_zone": 16,
-   "anchor_date": "2025-08-14",
-   "window_days": 365,
-   "stock_ret": 75.11,
-   "n500_ret": 4.03,
-   "ntm_ret": 4.42,
-   "sme_ret": null,
-   "mcap": 5895.0,
-   "pe": 30.0,
-   "basis": "standalone",
-   "reporting": "quarterly",
-   "ttm_pat": 196.0,
-   "prior_peak_pat": 180.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1739,41 +1832,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": true
-  },
-  {
-   "symbol": "DRAGARWQ",
-   "name": "Dr Agarwals Eye Hospital Limited",
-   "board": "Main",
-   "exch": "NSE",
-   "scr_slug": "DRAGARWQ",
-   "t2t": false,
-   "nse_industry": null,
-   "last_close": 5403.0,
-   "last_date": "2026-08-14",
-   "ath": 5418.0,
-   "ret_3m": null,
-   "ret_6m": null,
-   "ath_date": "2026-08-13",
-   "pct_from_ath": -0.28,
-   "zone_entry": "2026-07-22",
-   "days_in_zone": 18,
-   "anchor_date": "2026-07-22",
-   "window_days": 23,
-   "stock_ret": 7.34,
-   "n500_ret": 1.94,
-   "ntm_ret": 2.06,
-   "sme_ret": null,
-   "mcap": 2611.0,
-   "pe": 34.3,
-   "basis": "standalone",
-   "reporting": "quarterly",
-   "ttm_pat": 75.0,
-   "prior_peak_pat": 70.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   },
   {
@@ -1792,7 +1851,7 @@
    "ath_date": "2026-08-10",
    "pct_from_ath": -0.11,
    "zone_entry": "2026-07-21",
-   "days_in_zone": 18,
+   "days_in_zone": 19,
    "anchor_date": "2025-08-14",
    "window_days": 365,
    "stock_ret": 151.53,
@@ -1809,6 +1868,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
+   "audit_flag": false,
    "is_new": false
   }
  ]
