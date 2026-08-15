@@ -4,8 +4,8 @@
  "funnel": {
   "mainboard": 2126,
   "sme": 1014,
-  "ath_zone": 173,
-  "outperforming": 166,
+  "ath_zone": 162,
+  "outperforming": 160,
   "pat_at_ath": 99,
   "final": 50
  },
@@ -14,12 +14,7 @@
   "Nifty Total Market": 4.418949999804078,
   "NIFTY SME EMERGE": -3.7951530244094034
  },
- "dropped_since_last": [
-  "GHCLTEXTIL",
-  "JGCHEM",
-  "KENNAMET",
-  "KINGFA"
- ],
+ "dropped_since_last": [],
  "had_previous": true,
  "finalists": [
   {
@@ -87,7 +82,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "symbol": "KESAR",
@@ -154,7 +149,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Auto",
    "sector_ret": 21.1,
-   "is_new": true
+   "is_new": false
   },
   {
    "symbol": "ROSSTECH",
@@ -187,7 +182,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": true
+   "is_new": false
   },
   {
    "symbol": "AFCOM",
@@ -287,7 +282,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.2,
-   "is_new": true
+   "is_new": false
   },
   {
    "symbol": "KHAZANCHI",
@@ -1384,6 +1379,39 @@
    "is_new": false
   },
   {
+   "symbol": "DRAGARWQ",
+   "name": "Dr Agarwals Eye Hospital Limited",
+   "board": "Main",
+   "exch": "NSE",
+   "scr_slug": "DRAGARWQ",
+   "nse_industry": null,
+   "last_close": 5403.0,
+   "last_date": "2026-08-14",
+   "ath": 5418.0,
+   "ret_3m": 6.85,
+   "ret_6m": null,
+   "ath_date": "2026-08-13",
+   "pct_from_ath": -0.28,
+   "zone_entry": "2026-08-04",
+   "days_in_zone": 9,
+   "anchor_date": "2026-04-20",
+   "window_days": 116,
+   "stock_ret": 12.85,
+   "n500_ret": 3.19,
+   "ntm_ret": 3.72,
+   "sme_ret": null,
+   "mcap": 2611.0,
+   "basis": "standalone",
+   "reporting": "quarterly",
+   "ttm_pat": 75.0,
+   "prior_peak_pat": 70.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "is_new": false
+  },
+  {
    "symbol": "PGIL",
    "name": "Pearl Global Industries Limited",
    "board": "Main",
@@ -1609,39 +1637,6 @@
    "reporting": "quarterly",
    "ttm_pat": 196.0,
    "prior_peak_pat": 180.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
-   "is_new": false
-  },
-  {
-   "symbol": "DRAGARWQ",
-   "name": "Dr Agarwals Eye Hospital Limited",
-   "board": "Main",
-   "exch": "NSE",
-   "scr_slug": "DRAGARWQ",
-   "nse_industry": null,
-   "last_close": 5403.0,
-   "last_date": "2026-08-14",
-   "ath": 5418.0,
-   "ret_3m": null,
-   "ret_6m": null,
-   "ath_date": "2026-08-13",
-   "pct_from_ath": -0.28,
-   "zone_entry": "2026-07-22",
-   "days_in_zone": 18,
-   "anchor_date": "2026-07-22",
-   "window_days": 23,
-   "stock_ret": 7.34,
-   "n500_ret": 1.94,
-   "ntm_ret": 2.06,
-   "sme_ret": null,
-   "mcap": 2611.0,
-   "basis": "standalone",
-   "reporting": "quarterly",
-   "ttm_pat": 75.0,
-   "prior_peak_pat": 70.0,
    "latest_q": "Jun 2026",
    "pat_at_ath": true,
    "sector_index": null,
