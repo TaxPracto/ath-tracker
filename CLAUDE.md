@@ -134,6 +134,12 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   corp_flag ("possible split/bonus, ATH base suspect") -> warning symbol on page + email.
 - Flags persist into history.json (KEEP list).
 
+## Email rules (v5, 2026-08-15)
+- NO colors on <tr> — clients strip them (white-on-white header bug). Every color goes on the
+  individual <td> as BOTH bgcolor attribute and inline style. Table-based layout only.
+- Digest layout: brand band, headline count, NEW chips, 10-column compact table (full detail
+  lives in xlsx + site), "Open the radar" button, hidden preheader, subject carries new-count.
+
 ## Backlog (discussed, not built)
 SME corporate-action adjustment (splits create false ATH-misses); BE-series mainboard names;
 dividend-adjusted ATH option; history page of past weekly lists (weekly state snapshots ->
