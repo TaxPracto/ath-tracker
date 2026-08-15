@@ -14,6 +14,7 @@ def build(state):
     ws.title = "ATH Screen"
     hdrs = ["Rank", "Symbol", "Company", "Board", "Sector Index", "Mkt Cap (Rs Cr)",
             "Entered ATH Zone", "Days in Zone", "Last Close", "ATH", "% from ATH", "ATH Date",
+            "3M Return %", "6M Return %",
             "TTM Return %", "Nifty 500 %", "Nifty TM %", "Sector/SME %",
             "Alpha vs N500 pp", "Alpha vs Sector/SME pp",
             "TTM PAT (Rs Cr)", "Prior Peak PAT", "PAT vs Peak %", "Basis", "Reporting",
@@ -32,9 +33,11 @@ def build(state):
         a2 = None if bench2 is None else round(x["stock_ret"] - bench2, 1)
         patpk = (round((x["ttm_pat"] / x["prior_peak_pat"] - 1) * 100, 1)
                  if x.get("prior_peak_pat") and x["prior_peak_pat"] > 0 else None)
-        row = [i - 1, x["symbol"], x["name"], x["board"], sec, x.get("mcap"),
+        board = ("SME-" + x.get("exch", "NSE")) if x["board"] == "SME" else "Main"
+        row = [i - 1, x["symbol"], x["name"], board, sec, x.get("mcap"),
                x["zone_entry"], x["days_in_zone"], x["last_close"], x["ath"],
-               x["pct_from_ath"], x["ath_date"], x["stock_ret"], x.get("n500_ret"),
+               x["pct_from_ath"], x["ath_date"], x.get("ret_3m"), x.get("ret_6m"),
+               x["stock_ret"], x.get("n500_ret"),
                x.get("ntm_ret"), bench2, a1, a2, x.get("ttm_pat"), x.get("prior_peak_pat"),
                patpk, x.get("basis"), x.get("reporting"), x.get("latest_q"),
                "Yes" if x.get("is_new") else ("" if x.get("is_new") is None else "No")]
@@ -47,11 +50,11 @@ def build(state):
         for c in row:
             c.font = Font(name="Arial", size=10)
             c.border = thin
-    widths = [5, 13, 32, 7, 20, 12, 12, 8, 10, 10, 9, 11, 9, 9, 9, 10, 9, 9, 11, 11, 9, 12, 11, 11, 9]
+    widths = [5, 13, 32, 7, 20, 12, 12, 8, 10, 10, 9, 11, 9, 9, 9, 9, 9, 10, 9, 9, 11, 11, 9, 12, 11, 11, 9]
     for j, w in enumerate(widths, start=1):
         ws.column_dimensions[ws.cell(1, j).column_letter].width = w
     ws.freeze_panes = "C2"
-    ws.auto_filter.ref = f"A1:Y{len(fins)+1}"
+    ws.auto_filter.ref = f"A1:AA{len(fins)+1}"
 
     m = wb.create_sheet("Methodology")
     f = state["funnel"]

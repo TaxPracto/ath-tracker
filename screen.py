@@ -137,7 +137,15 @@ def series_metrics(ts_dates, closes):
     j = bisect.bisect_right(ts_dates, anchor) - 1
     j = max(j, 0)
     stock_ret = (last / closes[j] - 1) * 100 if closes[j] > 0 and j < len(closes) - 1 else None
+
+    def _ret(days):
+        k = bisect.bisect_right(ts_dates, last_d - timedelta(days=days)) - 1
+        if k < 0 or k >= len(closes) - 1 or closes[k] <= 0:
+            return None
+        return round((last / closes[k] - 1) * 100, 2)
+
     return {"last_close": round(last, 2), "last_date": str(last_d), "ath": round(ath, 2),
+            "ret_3m": _ret(91), "ret_6m": _ret(182),
             "ath_date": str(ts_dates[ath_i]), "pct_from_ath": round(pct_from_ath, 2),
             "zone_entry": str(ts_dates[i]), "days_in_zone": len(cond) - i,
             "anchor_date": str(ts_dates[j]), "window_days": (last_d - ts_dates[0]).days if (last_d - ts_dates[0]).days < TTM_DAYS else TTM_DAYS,
@@ -301,11 +309,14 @@ def load_universe():
     r = requests.get("https://archives.nseindia.com/content/equities/EQUITY_L.csv",
                      headers=UA, timeout=30)
     r.raise_for_status()
-    main = []
+    main, main_isins = [], set()
     for row in csv.DictReader(io.StringIO(r.text)):
         row = {k.strip(): (v or "").strip() for k, v in row.items()}
         if row.get("SERIES") == "EQ" and not row["SYMBOL"].startswith("DUMMY"):
-            main.append({"symbol": row["SYMBOL"], "name": row["NAME OF COMPANY"], "board": "Main"})
+            main.append({"symbol": row["SYMBOL"], "name": row["NAME OF COMPANY"], "board": "Main",
+                         "exch": "NSE", "scr_slug": row["SYMBOL"]})
+            if row.get("ISIN NUMBER"):
+                main_isins.add(row["ISIN NUMBER"])
     industry = {}
     try:
         r2 = requests.get("https://archives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv",
@@ -316,16 +327,28 @@ def load_universe():
         pass
     for u in main:
         u["nse_industry"] = industry.get(u["symbol"])
-    smes = []
+
+    smes, seen_isins = [], set()
     sme_path = os.path.join(DATA, "sme_prices.json")
     if os.path.exists(sme_path):
         store = json.load(open(sme_path))
-        symbols = store.get("symbols", store)  # new schema {"symbols": {...}} or legacy flat
+        symbols = store.get("symbols", store)
         cutoff = (TODAY - timedelta(days=14)).strftime("%Y%m%d")
-        for sym, obj in symbols.items():
-            if obj["px"] and obj["px"][-1][0] >= cutoff:  # still trading
-                smes.append({"symbol": sym, "name": sym, "board": "SME", "nse_industry": None,
-                             "_px": obj["px"]})
+        # NSE Emerge first (priority on dual listing), then BSE SME; dedupe by ISIN
+        ordered = sorted(symbols.items(), key=lambda kv: 0 if kv[1].get("exch", "NSE") == "NSE" else 1)
+        for key, obj in ordered:
+            if not obj["px"] or obj["px"][-1][0] < cutoff:
+                continue  # no longer trading
+            isin = obj.get("isin")
+            if isin and (isin in main_isins or isin in seen_isins):
+                continue  # migrated to mainboard / dual-listed
+            if isin:
+                seen_isins.add(isin)
+            exch = obj.get("exch", "NSE")
+            disp = obj.get("tckr") or key if exch == "BSE" else key
+            smes.append({"symbol": disp, "name": obj.get("name", disp), "board": "SME",
+                         "exch": exch, "scr_slug": obj.get("code") if exch == "BSE" else key,
+                         "nse_industry": None, "_px": obj["px"]})
     return main, smes
 
 
@@ -393,7 +416,7 @@ def main():
     # fundamentals gate
     finalists, pat_pass = [], 0
     for i, c in enumerate(stage2, 1):
-        f = fundamentals(c["symbol"], expected_price=c["last_close"])
+        f = fundamentals(c.get("scr_slug") or c["symbol"], expected_price=c["last_close"])
         if i % 20 == 0:
             print(f"  screener {i}/{len(stage2)}", flush=True)
         c.update(f)

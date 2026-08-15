@@ -80,9 +80,30 @@ commit -> one workflow run + one email). Pushing *.py triggers the FULL workflow
 Pushing only .md files is safe (path filter excludes them... NOTE: workflow push filter is
 ['*.py', '.github/workflows/*.yml'] so .md pushes do NOT trigger).
 
-## Backlog (discussed, not built)
-SME corporate-action adjustment (splits create false ATH-misses); BSE-only listings; BE-series
-mainboard names; dividend-adjusted ATH option; history page of past weekly lists; deep links
-per stock; wire tracker output into TheWrap Stage 2 Sunday scan.
+## v2 (2026-08-15, same day): UI + BSE SME + gate
+- Universe now ALSO includes BSE SME (bhavcopy series M/MT, ~350 active). seed_sme.py fetches
+  BOTH exchanges; store keys: NSE ticker or "BSE:<scripcode>"; rec carries exch/code/name/tckr.
+  Dedupe by ISIN: mainboard > NSE Emerge > BSE SME (catches SME->mainboard migrations too).
+  BSE SME benchmarked vs NIFTY SME EMERGE as proxy (documented on page). Screener lookups for
+  BSE SME use the numeric scrip code as slug (screener.in/company/<code>/).
+- Page v2: sortable headers (data-i/data-t, arrows, null-last), search, pills for board /
+  entered-within / mcap bucket, sector select, NEW-only toggle, live count, reset. All JS is a
+  plain string in build_page.py — NO backslashes, NO regex literals. jsdom smoke test MANDATORY
+  before deploy (gate + filters + sort assertions; preset localStorage 'ath_ok'='1' because
+  jsdom lacks crypto.subtle).
+- 3M/6M return columns (series_metrics _ret helper) in page + xlsx.
+- Passcode gate: SHA-256 hash baked into page; passcode = ATH_PASSCODE env or fallback
+  "highfive" in build_page.py (case-insensitive). localStorage 'ath_ok' remembers. HONEST
+  LIMIT: repo is public, so the fallback passcode is readable in source — it is a curtain,
+  not a lock. Real lock = Cloudflare Pages + Access (backlog).
+- Analytics: GoatCounter snippet -> https://athradar.goatcounter.com (Ashwani must register
+  code "athradar" at goatcounter.com; until then the snippet no-ops). Shows visits/paths/geo.
 
-_Last updated: 2026-08-15 (initial build)_
+## Backlog (discussed, not built)
+SME corporate-action adjustment (splits create false ATH-misses); BE-series mainboard names;
+dividend-adjusted ATH option; history page of past weekly lists (weekly state snapshots ->
+staying-power + what-happened-after stats, radar-backtest style); per-stock modal (PAT
+trajectory, liquidity/avg turnover); dropped-log page; ATH_PASSCODE env into workflow (needs
+workflow-file edit); Cloudflare Access real lock; wire into TheWrap Stage 2 Sunday scan.
+
+_Last updated: 2026-08-15 (v2: filters/sort/search UI, BSE SME universe, passcode gate, GoatCounter, 3M/6M columns)_
