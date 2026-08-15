@@ -29,7 +29,8 @@ def build_html(state):
         a1 = None if x.get("n500_ret") is None else x["stock_ret"] - x["n500_ret"]
         a2 = None if bench2 is None else x["stock_ret"] - bench2
         bg = ' style="background:#e2efda"' if x.get("is_new") else ""
-        rows += (f'<tr{bg}><td>{i}</td><td><b>{x["symbol"]}</b></td>'
+        warn = " &#9888;" if (x.get("audit_flag") or x.get("corp_flag")) else ""
+        rows += (f'<tr{bg}><td>{i}</td><td><b>{x["symbol"]}{warn}</b></td>'
                  f'<td>{x["name"][:32]}</td><td>{x["board"]}</td>'
                  f'<td align="right">{fmt(x.get("mcap"), dec=0)}</td>'
                  f'<td>{x["zone_entry"]} ({x["days_in_zone"]}d)</td>'
@@ -53,7 +54,7 @@ Funnel: {f['mainboard']:,} main + {f['sme']} SME &rarr; {f['ath_zone']} at ATH &
 <th align="right">&alpha; N500</th><th align="right">&alpha; sector/SME</th><th align="right">TTM PAT vs peak</th></tr>
 {rows if rows else '<tr><td colspan="11">No stock passes every filter this week.</td></tr>'}
 </table>
-<p style="font-size:11px;color:#555">Green = new since last run. Alpha in percentage points. SME prices unadjusted, history since Jul-2024. Full workbook attached; methodology on the site.</p>
+<p style="font-size:11px;color:#555">Green = new since last run. &#9888; = data caution (price mismatch vs exchange file, or possible corporate action) &mdash; verify before trusting that row. Alpha in percentage points. SME prices unadjusted, history since Jul-2024. Full workbook attached; methodology on the site.</p>
 <p style="font-size:11px;color:#888">Factual screen for research &mdash; not investment advice.</p></div>"""
 
 

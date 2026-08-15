@@ -363,6 +363,58 @@ def load_universe():
 
 
 # ---------------- main ----------------
+class GateFailure(SystemExit):
+    pass
+
+
+def gate(cond, reason):
+    """Pre-flight check: on failure the run DIES before touching docs/ or data/state.json.
+    The workflow job then fails -> site stays on last good build -> GitHub notifies Ashwani."""
+    if not cond:
+        print(f"PRE-FLIGHT GATE FAILED: {reason}", flush=True)
+        raise GateFailure(1)
+
+
+def latest_bhav_closes():
+    """{symbol: close} for ALL NSE series from the newest cached bhavcopy day (audit source)."""
+    import glob
+    days = sorted(glob.glob(os.path.join(BASE, "cache", "bhav", "*.json")), reverse=True)
+    tag = None
+    for p in days[:10]:
+        try:
+            if json.load(open(p)) is not None:
+                tag = os.path.basename(p)[:8]
+                break
+        except Exception:
+            continue
+    if not tag:
+        return {}, None
+    import io as _io, zipfile as _zip
+    url = f"https://archives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_{tag}_F_0000.csv.zip"
+    try:
+        r = requests.get(url, headers=UA, timeout=40)
+        z = _zip.ZipFile(_io.BytesIO(r.content))
+        out = {}
+        for row in csv.DictReader(_io.TextIOWrapper(z.open(z.namelist()[0]))):
+            if row.get("SctySrs") in ("EQ", "BE", "SM", "ST"):
+                try:
+                    out[row["TckrSymb"]] = float(row["ClsPric"])
+                except (ValueError, KeyError):
+                    pass
+        return out, tag
+    except Exception as e:
+        print("audit source unavailable:", e, flush=True)
+        return {}, None
+
+
+def corp_action_suspect(closes):
+    """True if any day-over-day move <=-33% or >=+50% (split/bonus/relist artefact)."""
+    for a, b in zip(closes, closes[1:]):
+        if a > 0 and (b / a - 1 <= -0.33 or b / a - 1 >= 0.50):
+            return True
+    return False
+
+
 def sync_checkout():
     """On GitHub runners: reset the checkout to latest origin/main BEFORE generating outputs,
     so the later commit step never has to rebase over another run's weekly commit
@@ -382,12 +434,21 @@ def main():
     sync_checkout()
     main_u, sme_u = load_universe()
     print(f"universe: {len(main_u)} mainboard + {len(sme_u)} SME", flush=True)
+    gate(len(main_u) > 2000, f"mainboard universe suspiciously small: {len(main_u)}")
+    gate(len(sme_u) > 400, f"SME universe suspiciously small: {len(sme_u)}")
     idx = IndexReturns()
     for req in ["NIFTY 500", "NIFTY TOTAL MARKET", SME_BENCH]:
-        assert req in idx.end, f"index missing from snapshot: {req}"
+        gate(req in idx.end, f"index missing from snapshot: {req}")
+    gate((TODAY - idx.end_date).days <= 4, f"index snapshot stale: {idx.end_date}")
+
+    # official exchange closes: authoritative final price for every NSE symbol
+    # (Yahoo supplies split-adjusted HISTORY; its latest close drifts 2-5% on smaller names)
+    official_px, official_tag = latest_bhav_closes()
+    gate(len(official_px) > 2000, "official bhavcopy for close-anchoring unavailable")
+    print(f"official closes anchored to bhavcopy {official_tag} ({len(official_px)} symbols)", flush=True)
 
     candidates = []
-    # mainboard via Yahoo
+    # mainboard via Yahoo history + official close
     def work(u):
         d = yahoo_daily(u["symbol"] + ".NS")
         time.sleep(random.uniform(0.02, 0.1))
@@ -403,9 +464,22 @@ def main():
                 fails += 1
                 continue
             met = series_metrics(*d)
-            if met and met["pct_from_ath"] >= -ATH_TOL * 100:
+            if not met:
+                continue
+            official = official_px.get(u["symbol"])
+            if official and abs(official / met["last_close"] - 1) <= 0.10:
+                anchor_close = met["last_close"] / (1 + (met["stock_ret"] or 0) / 100) \
+                    if met["stock_ret"] is not None else None
+                met["last_close"] = round(official, 2)
+                met["pct_from_ath"] = round((official / met["ath"] - 1) * 100, 2)
+                if met["pct_from_ath"] > 0:  # official close ABOVE Yahoo-history ATH = new high
+                    met["ath"], met["pct_from_ath"] = round(official, 2), 0.0
+                if anchor_close:
+                    met["stock_ret"] = round((official / anchor_close - 1) * 100, 2)
+            if met["pct_from_ath"] >= -ATH_TOL * 100:
                 candidates.append({**u, **met})
     print(f"mainboard fetched (missing {fails}), in ATH zone: {len(candidates)}", flush=True)
+    gate(fails < len(main_u) * 0.15, f"too many price-history failures: {fails}/{len(main_u)}")
 
     # SME from bhavcopy store (unadjusted closes; history since Jul-2024)
     sme_zone = 0
@@ -415,7 +489,8 @@ def main():
         met = series_metrics(dts, cls)
         if met and met["pct_from_ath"] >= -ATH_TOL * 100:
             candidates.append({**{k: v for k, v in u.items() if k != "_px"}, **met,
-                               "truncated_history": dts[0] <= date(2024, 7, 5)})
+                               "truncated_history": dts[0] <= date(2024, 7, 5),
+                               "corp_flag": corp_action_suspect(cls)})
             sme_zone += 1
     print(f"SME in ATH zone: {sme_zone}", flush=True)
 
@@ -462,6 +537,24 @@ def main():
             continue
         finalists.append(c)
     print(f"PAT at ATH: {pat_pass}; after sector + mcap band: {len(finalists)}", flush=True)
+    errs = sum(1 for c in stage2 if c.get("error"))
+    gate(errs < max(3, len(stage2) * 0.3), f"screener error rate too high: {errs}/{len(stage2)}")
+    gate(0 < len(finalists) <= 150, f"finalist count out of sane range: {len(finalists)}")
+
+    # second-source audit (tripwire): finalists' closes vs the exchange bhavcopy.
+    # Mainboard is already anchored to it, so any mismatch now means something structural
+    # (symbol collision, corrupted store) - flag the row and fail on clusters.
+    mismatches = 0
+    for f in finalists:
+        bhav = official_px.get(f["symbol"])
+        if f.get("exch") != "BSE" and bhav:
+            ok = abs(f["last_close"] / bhav - 1) <= 0.02
+            f["audit_flag"] = not ok
+            mismatches += (not ok)
+        else:
+            f["audit_flag"] = False
+    print(f"audit vs bhavcopy {official_tag}: {mismatches} mismatches", flush=True)
+    gate(mismatches <= 2, f"price audit failed for {mismatches} finalists - source disagreement")
 
     finalists.sort(key=lambda x: (x["zone_entry"], x["stock_ret"]), reverse=True)
 
@@ -501,7 +594,7 @@ def main():
             hist = []
     hist = [h for h in hist if h.get("date") != str(TODAY)]
     KEEP = ("symbol", "name", "board", "exch", "t2t", "scr_slug", "last_close",
-            "mcap", "pe", "zone_entry", "stock_ret")
+            "mcap", "pe", "zone_entry", "stock_ret", "audit_flag", "corp_flag")
     hist.append({"date": str(TODAY), "asof": str(idx.end_date),
                  "finalists": [{k: f.get(k) for k in KEEP} for f in finalists]})
     hist.sort(key=lambda h: h["date"])

@@ -123,6 +123,17 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   high) and falls through to the other basis. E2E on full standalone history: TTM 31 vs peak
   48 -> correctly excluded. If its recovery crosses the old peak it enters automatically.
 
+## v4 (2026-08-15): data-reliability guards (Ashwani: "make the data more reliable")
+- PRE-FLIGHT GATE in screen.py: run DIES before touching docs/state on any of — universe
+  counts too small, required indexes missing, snapshot stale >4d, >15% price-history failures,
+  screener error rate >30%, finalist count outside 1..150, >2 audit mismatches. Failed gate =
+  failed workflow job = site stays on last good build; GitHub emails the failure notification.
+- SECOND-SOURCE AUDIT: every NSE finalist's close checked vs the exchange bhavcopy (2% tol);
+  mismatch -> audit_flag -> warning symbol on page + email.
+- CORP-ACTION FLAG: SME zone candidates with any historical day move <=-33% or >=+50% get
+  corp_flag ("possible split/bonus, ATH base suspect") -> warning symbol on page + email.
+- Flags persist into history.json (KEEP list).
+
 ## Backlog (discussed, not built)
 SME corporate-action adjustment (splits create false ATH-misses); BE-series mainboard names;
 dividend-adjusted ATH option; history page of past weekly lists (weekly state snapshots ->

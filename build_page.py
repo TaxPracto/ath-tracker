@@ -249,6 +249,11 @@ def build(state):
             sec_label = x.get("sector_index") or "—"
         newtag = '<span class="tag newtag">NEW</span>' if x.get("is_new") else ""
         t2ttag = ' <span class="tag t2t" title="Trade-for-trade series: delivery-only settlement">T2T</span>' if x.get("t2t") else ""
+        warns = ""
+        if x.get("audit_flag"):
+            warns += ' <span title="Price did not tally with the exchange bhavcopy - verify before trusting">⚠</span>'
+        if x.get("corp_flag"):
+            warns += ' <span title="Extreme historical price jump detected - possible split/bonus, ATH base may be distorted">⚠</span>'
         cls = ' class="new"' if x.get("is_new") else ""
         patpk = (x["ttm_pat"] / x["prior_peak_pat"] - 1) * 100 if x.get("prior_peak_pat") and x["prior_peak_pat"] > 0 else None
         pat_pct = f' <span class="pos">({patpk:+.0f}%)</span>' if patpk is not None else ""
@@ -259,7 +264,7 @@ def build(state):
             f'data-sector="{sec_label}" data-mcap="{x.get("mcap") or 0}" data-days="{x["days_in_zone"]}" '
             f'data-isnew="{1 if x.get("is_new") else 0}">'
             f'<td class="num">{i}</td>'
-            f'<td class="sym"><a href="https://www.screener.in/company/{x.get("scr_slug") or x["symbol"]}/" target="_blank">{x["symbol"]}</a>{newtag}{t2ttag}{note}</td>'
+            f'<td class="sym"><a href="https://www.screener.in/company/{x.get("scr_slug") or x["symbol"]}/" target="_blank">{x["symbol"]}</a>{newtag}{t2ttag}{warns}{note}</td>'
             f'<td class="hide-m">{x["name"][:38]}</td>'
             f'<td><span class="tag {"sme" if x["board"] == "SME" else "main"}">'
             f'{("SME·" + x.get("exch", "NSE")) if x["board"] == "SME" else "Main"}</span></td>'
