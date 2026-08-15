@@ -1,0 +1,11 @@
+cache/
+seed.log
+digest_preview.html
+__pycache__/
+*.pyc
+bhav.zip
+idx_*.csv
+equity_l.csv
+sme_l.csv
+sme_try.csv
+sme_sample.txt
