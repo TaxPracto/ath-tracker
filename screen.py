@@ -376,17 +376,15 @@ def gate(cond, reason):
 
 
 def latest_bhav_closes():
-    """{symbol: close} for ALL NSE series from the newest cached bhavcopy day (audit source)."""
-    import glob
-    days = sorted(glob.glob(os.path.join(BASE, "cache", "bhav", "*.json")), reverse=True)
+    """{symbol: close} for ALL NSE series from the newest trading day's bhavcopy.
+    Tag comes from the committed SME store's date list (cache folders are empty on runners)."""
     tag = None
-    for p in days[:10]:
-        try:
-            if json.load(open(p)) is not None:
-                tag = os.path.basename(p)[:8]
-                break
-        except Exception:
-            continue
+    try:
+        store = json.load(open(os.path.join(DATA, "sme_prices.json")))
+        if store.get("dates"):
+            tag = store["dates"][-1]
+    except Exception:
+        pass
     if not tag:
         return {}, None
     import io as _io, zipfile as _zip
