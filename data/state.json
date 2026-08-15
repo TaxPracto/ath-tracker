@@ -4,8 +4,8 @@
  "funnel": {
   "mainboard": 2126,
   "sme": 547,
-  "ath_zone": 136,
-  "outperforming": 133,
+  "ath_zone": 148,
+  "outperforming": 140,
   "pat_at_ath": 90,
   "final": 45
  },
@@ -15,7 +15,7 @@
   "NIFTY SME EMERGE": -3.7951530244094034
  },
  "dropped_since_last": [],
- "had_previous": false,
+ "had_previous": true,
  "finalists": [
   {
    "symbol": "AIMTRON",
@@ -45,7 +45,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "MANINDS",
@@ -74,7 +74,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "MANORAMA",
@@ -103,7 +103,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty FMCG",
    "sector_ret": -11.05,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KMEW",
@@ -132,7 +132,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "RPEL",
@@ -161,7 +161,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "MARINE",
@@ -190,7 +190,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "STYLAMIND",
@@ -219,7 +219,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "AZAD",
@@ -248,7 +248,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "STEELCAS",
@@ -277,7 +277,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "GHCLTEXTIL",
@@ -306,7 +306,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "ALIVUS",
@@ -335,7 +335,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.35,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "JGCHEM",
@@ -364,7 +364,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "THELEELA",
@@ -393,7 +393,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "OBSCP",
@@ -423,7 +423,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "MONOLITH",
@@ -453,7 +453,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "DIVGIITTS",
@@ -482,7 +482,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SHRIPISTON",
@@ -511,7 +511,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Auto",
    "sector_ret": 21.08,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KTKBANK",
@@ -540,7 +540,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Financial Services",
    "sector_ret": -0.45,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KRN",
@@ -569,7 +569,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "RAMRAT",
@@ -598,7 +598,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "AVALON",
@@ -627,7 +627,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SENORES",
@@ -656,7 +656,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "CNL",
@@ -685,7 +685,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SETL",
@@ -714,7 +714,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SHADOWFAX",
@@ -743,7 +743,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SEDEMAC",
@@ -772,7 +772,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "MBAPL",
@@ -801,36 +801,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
-  },
-  {
-   "symbol": "KRISHANA",
-   "name": "Krishana Phoschem Limited",
-   "board": "Main",
-   "nse_industry": null,
-   "last_close": 188.94,
-   "last_date": "2026-08-13",
-   "ath": 188.94,
-   "ath_date": "2026-08-13",
-   "pct_from_ath": 0.0,
-   "zone_entry": "2026-08-10",
-   "days_in_zone": 4,
-   "anchor_date": "2025-08-13",
-   "window_days": 365,
-   "stock_ret": 75.35,
-   "n500_ret": 3.95,
-   "ntm_ret": 4.31,
-   "sme_ret": null,
-   "mcap": 5895.0,
-   "basis": "standalone",
-   "reporting": "quarterly",
-   "ttm_pat": 196.0,
-   "prior_peak_pat": 180.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "VADILALIND",
@@ -859,7 +830,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KAPSTON",
@@ -888,36 +859,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
-  },
-  {
-   "symbol": "COMSYN",
-   "name": "Commercial Syn Bags Limited",
-   "board": "Main",
-   "nse_industry": null,
-   "last_close": 282.66,
-   "last_date": "2026-08-13",
-   "ath": 282.66,
-   "ath_date": "2026-08-13",
-   "pct_from_ath": 0.0,
-   "zone_entry": "2026-08-07",
-   "days_in_zone": 5,
-   "anchor_date": "2025-08-13",
-   "window_days": 365,
-   "stock_ret": 108.34,
-   "n500_ret": 3.95,
-   "ntm_ret": 4.31,
-   "sme_ret": null,
-   "mcap": 1163.0,
-   "basis": "consolidated",
-   "reporting": "quarterly",
-   "ttm_pat": 29.7,
-   "prior_peak_pat": 28.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "ACCENTMIC",
@@ -947,7 +889,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KINGFA",
@@ -976,7 +918,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KENNAMET",
@@ -1005,7 +947,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KSHINTL",
@@ -1034,7 +976,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SGMART",
@@ -1063,7 +1005,36 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
+  },
+  {
+   "symbol": "COMSYN",
+   "name": "Commercial Syn Bags Limited",
+   "board": "Main",
+   "nse_industry": null,
+   "last_close": 282.66,
+   "last_date": "2026-08-13",
+   "ath": 282.66,
+   "ath_date": "2026-08-13",
+   "pct_from_ath": 0.0,
+   "zone_entry": "2026-08-04",
+   "days_in_zone": 8,
+   "anchor_date": "2025-08-13",
+   "window_days": 365,
+   "stock_ret": 108.34,
+   "n500_ret": 3.95,
+   "ntm_ret": 4.31,
+   "sme_ret": null,
+   "mcap": 1163.0,
+   "basis": "consolidated",
+   "reporting": "quarterly",
+   "ttm_pat": 29.7,
+   "prior_peak_pat": 28.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "is_new": false
   },
   {
    "symbol": "SHILPAMED",
@@ -1092,7 +1063,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Healthcare Index",
    "sector_ret": 12.35,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "KDDL",
@@ -1121,36 +1092,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
-  },
-  {
-   "symbol": "DRAGARWQ",
-   "name": "Dr Agarwals Eye Hospital Limited",
-   "board": "Main",
-   "nse_industry": null,
-   "last_close": 5403.0,
-   "last_date": "2026-08-14",
-   "ath": 5418.0,
-   "ath_date": "2026-08-13",
-   "pct_from_ath": -0.28,
-   "zone_entry": "2026-08-04",
-   "days_in_zone": 9,
-   "anchor_date": "2026-04-20",
-   "window_days": 116,
-   "stock_ret": 12.85,
-   "n500_ret": 3.19,
-   "ntm_ret": 3.72,
-   "sme_ret": null,
-   "mcap": 2611.0,
-   "basis": "standalone",
-   "reporting": "quarterly",
-   "ttm_pat": 75.0,
-   "prior_peak_pat": 70.0,
-   "latest_q": "Jun 2026",
-   "pat_at_ath": true,
-   "sector_index": null,
-   "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "PGIL",
@@ -1162,8 +1104,8 @@
    "ath": 2480.4,
    "ath_date": "2026-08-12",
    "pct_from_ath": -0.62,
-   "zone_entry": "2026-07-31",
-   "days_in_zone": 10,
+   "zone_entry": "2026-08-03",
+   "days_in_zone": 9,
    "anchor_date": "2025-08-13",
    "window_days": 365,
    "stock_ret": 97.41,
@@ -1179,7 +1121,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "SUDEEPPHRM",
@@ -1191,8 +1133,8 @@
    "ath": 1108.4,
    "ath_date": "2026-08-11",
    "pct_from_ath": -0.26,
-   "zone_entry": "2026-07-31",
-   "days_in_zone": 11,
+   "zone_entry": "2026-08-03",
+   "days_in_zone": 10,
    "anchor_date": "2025-11-28",
    "window_days": 259,
    "stock_ret": 42.81,
@@ -1208,7 +1150,7 @@
    "pat_at_ath": true,
    "sector_index": "Nifty Chemicals",
    "sector_ret": 6.68,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "HAPPYFORGE",
@@ -1221,7 +1163,7 @@
    "ath_date": "2026-08-12",
    "pct_from_ath": -0.75,
    "zone_entry": "2026-07-29",
-   "days_in_zone": 12,
+   "days_in_zone": 11,
    "anchor_date": "2025-08-13",
    "window_days": 365,
    "stock_ret": 113.31,
@@ -1237,7 +1179,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "RSL",
@@ -1250,7 +1192,7 @@
    "ath_date": "2026-08-13",
    "pct_from_ath": 0.0,
    "zone_entry": "2026-07-28",
-   "days_in_zone": 13,
+   "days_in_zone": 12,
    "anchor_date": "2026-03-19",
    "window_days": 147,
    "stock_ret": 47.54,
@@ -1266,7 +1208,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   },
   {
    "symbol": "GSPCROP",
@@ -1279,7 +1221,7 @@
    "ath_date": "2026-08-07",
    "pct_from_ath": -0.97,
    "zone_entry": "2026-07-27",
-   "days_in_zone": 14,
+   "days_in_zone": 13,
    "anchor_date": "2026-03-24",
    "window_days": 142,
    "stock_ret": 66.09,
@@ -1295,7 +1237,65 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
+  },
+  {
+   "symbol": "KRISHANA",
+   "name": "Krishana Phoschem Limited",
+   "board": "Main",
+   "nse_industry": null,
+   "last_close": 188.94,
+   "last_date": "2026-08-13",
+   "ath": 188.94,
+   "ath_date": "2026-08-13",
+   "pct_from_ath": 0.0,
+   "zone_entry": "2026-07-23",
+   "days_in_zone": 15,
+   "anchor_date": "2025-08-13",
+   "window_days": 365,
+   "stock_ret": 75.35,
+   "n500_ret": 3.95,
+   "ntm_ret": 4.31,
+   "sme_ret": null,
+   "mcap": 5895.0,
+   "basis": "standalone",
+   "reporting": "quarterly",
+   "ttm_pat": 196.0,
+   "prior_peak_pat": 180.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "is_new": false
+  },
+  {
+   "symbol": "DRAGARWQ",
+   "name": "Dr Agarwals Eye Hospital Limited",
+   "board": "Main",
+   "nse_industry": null,
+   "last_close": 5403.0,
+   "last_date": "2026-08-14",
+   "ath": 5418.0,
+   "ath_date": "2026-08-13",
+   "pct_from_ath": -0.28,
+   "zone_entry": "2026-07-22",
+   "days_in_zone": 18,
+   "anchor_date": "2026-07-22",
+   "window_days": 23,
+   "stock_ret": 7.34,
+   "n500_ret": 1.94,
+   "ntm_ret": 2.06,
+   "sme_ret": null,
+   "mcap": 2611.0,
+   "basis": "standalone",
+   "reporting": "quarterly",
+   "ttm_pat": 75.0,
+   "prior_peak_pat": 70.0,
+   "latest_q": "Jun 2026",
+   "pat_at_ath": true,
+   "sector_index": null,
+   "sector_ret": null,
+   "is_new": false
   },
   {
    "symbol": "NGLFINE",
@@ -1308,7 +1308,7 @@
    "ath_date": "2026-08-10",
    "pct_from_ath": -0.64,
    "zone_entry": "2026-07-21",
-   "days_in_zone": 18,
+   "days_in_zone": 17,
    "anchor_date": "2025-08-13",
    "window_days": 365,
    "stock_ret": 159.83,
@@ -1324,7 +1324,7 @@
    "pat_at_ath": true,
    "sector_index": null,
    "sector_ret": null,
-   "is_new": null
+   "is_new": false
   }
  ]
 }
