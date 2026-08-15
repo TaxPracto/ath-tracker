@@ -353,7 +353,23 @@ def load_universe():
 
 
 # ---------------- main ----------------
+def sync_checkout():
+    """On GitHub runners: reset the checkout to latest origin/main BEFORE generating outputs,
+    so the later commit step never has to rebase over another run's weekly commit
+    (the 2026-08-15 overlap shipped merge-conflict markers to the live site)."""
+    if os.environ.get("GITHUB_ACTIONS") != "true":
+        return
+    import subprocess
+    try:
+        subprocess.run(["git", "fetch", "origin", "main"], check=True, timeout=60)
+        subprocess.run(["git", "reset", "-q", "--hard", "origin/main"], check=True, timeout=60)
+        print("checkout synced to origin/main", flush=True)
+    except Exception as e:
+        print("checkout sync skipped:", e, flush=True)
+
+
 def main():
+    sync_checkout()
     main_u, sme_u = load_universe()
     print(f"universe: {len(main_u)} mainboard + {len(sme_u)} SME", flush=True)
     idx = IndexReturns()
