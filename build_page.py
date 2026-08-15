@@ -3,8 +3,9 @@
 v2: sortable headers, search, board/entered/mcap pills, sector select, NEW toggle, live count.
 JS is a plain string: NO backslashes, NO regex literals (see CLAUDE.md pitfalls)."""
 import json, os
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
+IST = timezone(timedelta(hours=5, minutes=30))
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 TPL = """<!DOCTYPE html>
@@ -278,7 +279,7 @@ def build(state):
 
     html = (TPL.replace("__FUNNEL__", funnel)
             .replace("__ASOF__", state["asof"])
-            .replace("__GENERATED__", datetime.now().strftime("%d %b %Y, %H:%M IST"))
+            .replace("__GENERATED__", datetime.now(IST).strftime("%d %b %Y, %H:%M IST"))
             .replace("__BENCH__", bench)
             .replace("__NEWHDR__", newhdr)
             .replace("__NEWSTRIP__", newstrip)

@@ -67,6 +67,12 @@ SMEs: broad + SME Emerge only (no sector test).
 - ind_close_all names differ from API names: "Nifty Healthcare Index" (not NIFTY HEALTHCARE),
   "NIFTY SME EMERGE" is uppercase. Match case-insensitively (parser uppercases keys).
 - First run after seeding: state.json has no previous list -> is_new=None, page says baseline.
+- RACE (bit us 2026-08-15): two pushes minutes apart -> two queued runs; the second run's
+  "git pull --rebase" hit the first run's weekly-data commit -> conflict markers written into
+  data/state.json AND docs/index.html -> "|| true" swallowed it -> deploy shipped a corrupted
+  page and email crashed on invalid JSON. Fix = commit step uses "git fetch origin main &&
+  git reset -q origin/main" (mixed reset keeps fresh working tree) instead of pull --rebase.
+  Process rule regardless: batch changes into ONE push; never two quick pushes.
 - Yahoo revises closes after hours: borderline ATH names flicker between runs (PRICOLLTD -1.0%
   became -2.3% overnight on the same trading day's data). Not a bug — the 2% gate is hard.
 - Screener consolidated pages can be DATA-LESS STUBS while standalone has real data (OBSCP):

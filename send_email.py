@@ -58,7 +58,12 @@ Funnel: {f['mainboard']:,} main + {f['sme']} SME &rarr; {f['ath_zone']} at ATH &
 
 
 def main():
-    state = json.load(open(os.path.join(BASE, "data", "state.json")))
+    try:
+        state = json.load(open(os.path.join(BASE, "data", "state.json")))
+    except Exception as e:
+        print(f"ERROR: data/state.json unreadable ({e}) - likely a merge conflict "
+              f"from overlapping runs. Skipping email; investigate the commit step.")
+        sys.exit(1)
     html = build_html(state)
     if "--preview" in sys.argv:
         open(os.path.join(BASE, "digest_preview.html"), "w", encoding="utf-8").write(html)
