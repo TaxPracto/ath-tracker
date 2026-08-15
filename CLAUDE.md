@@ -105,6 +105,24 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   (access control, analytics, anything user-facing that he didn't specify), DISCUSS OPTIONS
   FIRST, build after he picks. He said: "why do you build directly, discuss with me."
 
+## v3 (2026-08-15, later same day): BE series, P/E, History tab, PAT-history guards
+- Universe includes NSE BE series (trade-for-trade, ~250 names incl. E2E Networks) with t2t
+  flag -> red T2T badge on page, "Main (T2T)" in xlsx. Chosen by Ashwani after E2E was found
+  missing solely due to the EQ-only filter.
+- P/E column (screener "Stock P/E", parsed alongside mcap) on page (sortable, after Mkt Cap),
+  in xlsx and history. Column indexes on index.html shifted — jsdom test tracks them.
+- History: data/history.json (one entry per run date, idempotent - latest run of a day wins,
+  KEEP-list of compact fields) + docs/history.html via build_history.py: staying-power table,
+  weekly archive (details/summary, NEW badges), and a what-happened-after section (+4w/+12w
+  from appearance close) that AUTO-ACTIVATES once appearances are 28+ days old. Prices for
+  past names read from cache/px + SME store during the run. Nav links both ways.
+- PAT-history guards (the E2E lesson, cost a near-miss): (a) half-yearly detection now
+  requires EVERY gap >120d, not the median — a sparse quarterly history (E2E consolidated had
+  3 quarters) must not be misread as half-yearly; (b) a basis with prior_peak None or with
+  <2 annual years AND <3 rolling windows is rejected (too little history to claim an all-time
+  high) and falls through to the other basis. E2E on full standalone history: TTM 31 vs peak
+  48 -> correctly excluded. If its recovery crosses the old peak it enters automatically.
+
 ## Backlog (discussed, not built)
 SME corporate-action adjustment (splits create false ATH-misses); BE-series mainboard names;
 dividend-adjusted ATH option; history page of past weekly lists (weekly state snapshots ->

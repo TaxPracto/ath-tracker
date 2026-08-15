@@ -246,10 +246,13 @@ def fundamentals(symbol, expected_price=None):
             if not page_price or not (0.65 <= page_price / expected_price <= 1.35):
                 continue  # stub or mismatched page -> try other basis / fail
         soup = BeautifulSoup(html, "lxml")
-        mcap = None
+        mcap = pe = None
         m = re.search(r"Market Cap.{0,200}?([\d,]+(?:\.\d+)?)\s*(?:</span>)?\s*Cr", html, re.S)
         if m:
             mcap = float(m.group(1).replace(",", ""))
+        mpe = re.search(r"Stock P/E.{0,200}?([\d,]+(?:\.\d+)?)\s*<", html, re.S)
+        if mpe:
+            pe = float(mpe.group(1).replace(",", ""))
         sector_text = " ".join(a.get_text(strip=True)
                                for a in soup.select('a[href*="/company/compare/"]')).lower()
         qsec = soup.find("section", id="quarters")
@@ -270,7 +273,9 @@ def fundamentals(symbol, expected_price=None):
                 return None
         pds = [pdate(h) for h, _ in quarters]
         gaps = [(b - a).days for a, b in zip(pds, pds[1:]) if a and b]
-        win = 2 if (gaps and sorted(gaps)[len(gaps) // 2] > 120) else 4
+        # half-yearly ONLY if every gap is >120d (a sparse quarterly history has mixed gaps
+        # and must NOT be mistaken for half-yearly - the E2E bug of 2026-08-15)
+        win = 2 if (gaps and min(gaps) > 120) else 4
         vals = [v for _, v in quarters]
         if len(vals) < win:
             continue
@@ -278,13 +283,17 @@ def fundamentals(symbol, expected_price=None):
         windows = [sum(vals[i:i + win]) for i in range(len(vals) - win + 1)]
         prior_win_max = max(windows[:-1]) if len(windows) > 1 else None
         annual_max = None
+        n_annual = 0
         if psec and psec.find("table"):
             ph, pv = row_from_table(psec.find("table"), "Net Profit")
             if pv:
                 annual = [v for h, v in zip(ph, pv) if v is not None and h.strip().upper() != "TTM"]
+                n_annual = len(annual)
                 annual_max = max(annual) if annual else None
         prior_peak = max([x for x in (prior_win_max, annual_max) if x is not None], default=None)
-        return {"mcap": mcap, "sector_text": sector_text,
+        if prior_peak is None or (n_annual < 2 and len(windows) < 3):
+            continue  # too little history to claim an all-time high; try the other basis
+        return {"mcap": mcap, "pe": pe, "sector_text": sector_text,
                 "basis": "consolidated" if consolidated else "standalone",
                 "reporting": "half-yearly" if win == 2 else "quarterly",
                 "ttm_pat": round(ttm, 1),
@@ -312,9 +321,10 @@ def load_universe():
     main, main_isins = [], set()
     for row in csv.DictReader(io.StringIO(r.text)):
         row = {k.strip(): (v or "").strip() for k, v in row.items()}
-        if row.get("SERIES") == "EQ" and not row["SYMBOL"].startswith("DUMMY"):
+        if row.get("SERIES") in ("EQ", "BE") and not row["SYMBOL"].startswith("DUMMY"):
             main.append({"symbol": row["SYMBOL"], "name": row["NAME OF COMPANY"], "board": "Main",
-                         "exch": "NSE", "scr_slug": row["SYMBOL"]})
+                         "exch": "NSE", "scr_slug": row["SYMBOL"],
+                         "t2t": row.get("SERIES") == "BE"})
             if row.get("ISIN NUMBER"):
                 main_isins.add(row["ISIN NUMBER"])
     industry = {}
@@ -348,7 +358,7 @@ def load_universe():
             disp = obj.get("tckr") or key if exch == "BSE" else key
             smes.append({"symbol": disp, "name": obj.get("name", disp), "board": "SME",
                          "exch": exch, "scr_slug": obj.get("code") if exch == "BSE" else key,
-                         "nse_industry": None, "_px": obj["px"]})
+                         "t2t": False, "nse_industry": None, "_px": obj["px"]})
     return main, smes
 
 
@@ -481,11 +491,29 @@ def main():
     json.dump(state, open(os.path.join(DOCS, "data.json"), "w"))
     print("state written:", len(finalists), "finalists", flush=True)
 
+    # append this run to the weekly history (idempotent per date, latest run wins)
+    hist_path = os.path.join(DATA, "history.json")
+    hist = []
+    if os.path.exists(hist_path):
+        try:
+            hist = json.load(open(hist_path))
+        except Exception:
+            hist = []
+    hist = [h for h in hist if h.get("date") != str(TODAY)]
+    KEEP = ("symbol", "name", "board", "exch", "t2t", "scr_slug", "last_close",
+            "mcap", "pe", "zone_entry", "stock_ret")
+    hist.append({"date": str(TODAY), "asof": str(idx.end_date),
+                 "finalists": [{k: f.get(k) for k in KEEP} for f in finalists]})
+    hist.sort(key=lambda h: h["date"])
+    json.dump(hist, open(hist_path, "w"))
+
     import build_page
     build_page.build(state)
     import build_xlsx
     build_xlsx.build(state)
-    print("site + xlsx built", flush=True)
+    import build_history
+    build_history.build(hist)
+    print("site + xlsx + history built", flush=True)
 
 
 if __name__ == "__main__":

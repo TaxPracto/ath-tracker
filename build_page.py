@@ -45,6 +45,7 @@ tr.new td{background:var(--greenbg)}
 .tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:600}
 .tag.sme{background:var(--goldbg);color:var(--gold)}.tag.main{background:#E8EDF7;color:var(--blue)}
 .tag.newtag{background:var(--green);color:#fff;margin-left:6px}
+.tag.t2t{background:#FBEAEA;color:var(--red)}
 .sym a{color:var(--blue);text-decoration:none;font-weight:600}.sym a:hover{text-decoration:underline}
 .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-top:12px}
 .box p{margin:6px 0}
@@ -60,7 +61,7 @@ a.dl{color:var(--blue)}
 <h1>ATH Radar</h1>
 <div class="sub">Stocks within 2% of their all-time high, with all-time-high trailing profits, beating the market and their sector — market cap Rs 1,000–20,000 Cr. Sorted by newest arrival at the high.</div>
 <div class="funnel">__FUNNEL__</div>
-<div class="small">Prices as of __ASOF__ · generated __GENERATED__ · benchmarks (TTM): __BENCH__</div>
+<div class="small">Prices as of __ASOF__ · generated __GENERATED__ · benchmarks (TTM): __BENCH__ · <a class="dl" href="history.html"><b>History &amp; staying power →</b></a></div>
 <h2>__NEWHDR__</h2>
 <div class="newstrip">__NEWSTRIP__</div>
 <h2>Current list</h2>
@@ -85,14 +86,15 @@ a.dl{color:var(--blue)}
 <th class="s" data-i="3" data-t="s">Board<span class="ar"></span></th>
 <th class="s hide-m" data-i="4" data-t="s">Sector index<span class="ar"></span></th>
 <th class="s" data-i="5" data-t="n">Mkt Cap<br>Rs Cr<span class="ar"></span></th>
-<th class="s" data-i="6" data-t="s">Entered<br>ATH zone<span class="ar"></span></th>
-<th class="s" data-i="7" data-t="n">% from<br>ATH<span class="ar"></span></th>
-<th class="s" data-i="8" data-t="n">3M<span class="ar"></span></th>
-<th class="s" data-i="9" data-t="n">6M<span class="ar"></span></th>
-<th class="s" data-i="10" data-t="n">TTM<span class="ar"></span></th>
-<th class="s" data-i="11" data-t="n">vs N500<br>pp<span class="ar"></span></th>
-<th class="s hide-m" data-i="12" data-t="n">vs sector/SME<br>pp<span class="ar"></span></th>
-<th class="s" data-i="13" data-t="n">TTM PAT vs peak<br>Rs Cr<span class="ar"></span></th>
+<th class="s" data-i="6" data-t="n">P/E<span class="ar"></span></th>
+<th class="s" data-i="7" data-t="s">Entered<br>ATH zone<span class="ar"></span></th>
+<th class="s" data-i="8" data-t="n">% from<br>ATH<span class="ar"></span></th>
+<th class="s" data-i="9" data-t="n">3M<span class="ar"></span></th>
+<th class="s" data-i="10" data-t="n">6M<span class="ar"></span></th>
+<th class="s" data-i="11" data-t="n">TTM<span class="ar"></span></th>
+<th class="s" data-i="12" data-t="n">vs N500<br>pp<span class="ar"></span></th>
+<th class="s hide-m" data-i="13" data-t="n">vs sector/SME<br>pp<span class="ar"></span></th>
+<th class="s" data-i="14" data-t="n">TTM PAT vs peak<br>Rs Cr<span class="ar"></span></th>
 </tr></thead>
 <tbody>
 __ROWS__
@@ -102,7 +104,7 @@ __ROWS__
 <div>__DROPPED__</div>
 <h2>How this list is made</h2>
 <div class="box">
-<p><b>Universe.</b> Every NSE mainboard stock (~2,400) plus NSE Emerge (~450) and BSE SME (~350) companies, de-duplicated by ISIN (mainboard wins on migration).</p>
+<p><b>Universe.</b> Every NSE mainboard stock — regular EQ series plus trade-for-trade BE series, badged <span class="tag t2t">T2T</span> (~2,650 total) — plus NSE Emerge (~450) and BSE SME (~350) companies, de-duplicated by ISIN (mainboard wins on migration). T2T = delivery-only settlement, often an exchange surveillance measure: extra caution warranted.</p>
 <p><b>Filter 1 — price at lifetime high.</b> Last close within 2% of the highest daily close ever (split-adjusted for mainboard; SME prices from exchange bhavcopies, history since Jul 2024, unadjusted for corporate actions).</p>
 <p><b>Filter 2 — outperformance.</b> Trailing-12-month return strictly above the Nifty 500 AND Nifty Total Market; SMEs must also beat NIFTY SME EMERGE (used as proxy benchmark for BSE SME too); mainboard stocks with a mapped sector index must also beat that sector. Stocks listed under a year use a matched window from listing.</p>
 <p><b>Filter 3 — profits at lifetime high.</b> Trailing-12-month net profit (last 4 quarters, or 2 half-years for SME reporters; consolidated preferred) must be at least every annual profit on record (~12 visible years) and every prior rolling window. Source: screener.in.</p>
@@ -246,6 +248,7 @@ def build(state):
             alpha2 = None if x.get("sector_ret") is None else x["stock_ret"] - x["sector_ret"]
             sec_label = x.get("sector_index") or "—"
         newtag = '<span class="tag newtag">NEW</span>' if x.get("is_new") else ""
+        t2ttag = ' <span class="tag t2t" title="Trade-for-trade series: delivery-only settlement">T2T</span>' if x.get("t2t") else ""
         cls = ' class="new"' if x.get("is_new") else ""
         patpk = (x["ttm_pat"] / x["prior_peak_pat"] - 1) * 100 if x.get("prior_peak_pat") and x["prior_peak_pat"] > 0 else None
         pat_pct = f' <span class="pos">({patpk:+.0f}%)</span>' if patpk is not None else ""
@@ -256,12 +259,13 @@ def build(state):
             f'data-sector="{sec_label}" data-mcap="{x.get("mcap") or 0}" data-days="{x["days_in_zone"]}" '
             f'data-isnew="{1 if x.get("is_new") else 0}">'
             f'<td class="num">{i}</td>'
-            f'<td class="sym"><a href="https://www.screener.in/company/{x.get("scr_slug") or x["symbol"]}/" target="_blank">{x["symbol"]}</a>{newtag}{note}</td>'
+            f'<td class="sym"><a href="https://www.screener.in/company/{x.get("scr_slug") or x["symbol"]}/" target="_blank">{x["symbol"]}</a>{newtag}{t2ttag}{note}</td>'
             f'<td class="hide-m">{x["name"][:38]}</td>'
             f'<td><span class="tag {"sme" if x["board"] == "SME" else "main"}">'
             f'{("SME·" + x.get("exch", "NSE")) if x["board"] == "SME" else "Main"}</span></td>'
             f'<td class="hide-m">{sec_label}</td>'
             f'<td class="num" data-v="{x.get("mcap") or ""}">{_fmt(x.get("mcap"), dec=0)}</td>'
+            f'<td class="num" data-v="{x.get("pe") if x.get("pe") is not None else ""}">{_fmt(x.get("pe"), dec=0)}</td>'
             f'<td class="num" data-v="{x["zone_entry"]}">{x["zone_entry"]}<div class="small">{x["days_in_zone"]}d in zone</div></td>'
             f'<td class="num" data-v="{x["pct_from_ath"]}">{_fmt(x["pct_from_ath"])}%</td>'
             f'<td class="num" data-v="{x.get("ret_3m") if x.get("ret_3m") is not None else ""}">{_fmt(x.get("ret_3m"), plus=True, dec=0)}%</td>'
@@ -285,7 +289,7 @@ def build(state):
             .replace("__NEWSTRIP__", newstrip)
             .replace("__SECOPTS__", secopts)
             .replace("__NEWTOGL__", newtogl)
-            .replace("__ROWS__", "\n".join(rows) if rows else '<tr><td colspan="14" class="sub">No stock passes every filter this week.</td></tr>')
+            .replace("__ROWS__", "\n".join(rows) if rows else '<tr><td colspan="15" class="sub">No stock passes every filter this week.</td></tr>')
             .replace("__DROPPED__", dropped_html))
     out = os.path.join(BASE, "docs", "index.html")
     open(out, "w", encoding="utf-8").write(html)
