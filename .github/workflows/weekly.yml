@@ -1,0 +1,64 @@
+name: weekly-ath-screen
+
+on:
+  schedule:
+    - cron: "0 14 * * 5"   # Friday 14:00 UTC = 19:30 IST
+  workflow_dispatch:
+  push:
+    paths: ["*.py", ".github/workflows/*.yml"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests beautifulsoup4 lxml openpyxl
+
+      - name: Update SME price store (incremental)
+        run: python seed_sme.py
+
+      - name: Run screen
+        run: python screen.py
+
+      - name: Commit data + docs
+        run: |
+          git config user.name "ath-radar-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data docs
+          git commit -m "weekly run $(date -u +%F)" || echo "nothing to commit"
+          git pull --rebase || true
+          git push || true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      - name: Email digest
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DIGEST_TO: ${{ secrets.DIGEST_TO }}
+        run: python send_email.py
