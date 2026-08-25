@@ -446,21 +446,39 @@ def main():
     print(f"official closes anchored to bhavcopy {official_tag} ({len(official_px)} symbols)", flush=True)
 
     candidates = []
-    # mainboard via Yahoo history + official close
+    # mainboard via Yahoo history + official close.
+    # GitHub runner IPs get rate-limited by Yahoo far harder than residential ones
+    # (killed the 2026-08-21 scheduled run): fewer workers there + a serial salvage
+    # pass for failures BEFORE the 15% gate is applied.
+    on_runner = os.environ.get("GITHUB_ACTIONS") == "true"
+    workers = 4 if on_runner else 8
+    pause = (0.15, 0.4) if on_runner else (0.02, 0.1)
+
     def work(u):
         d = yahoo_daily(u["symbol"] + ".NS")
-        time.sleep(random.uniform(0.02, 0.1))
+        time.sleep(random.uniform(*pause))
         return u, d
-    fails = 0
-    with ThreadPoolExecutor(max_workers=8) as ex:
+
+    fetched, failed_syms = {}, []
+    with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = [ex.submit(work, u) for u in main_u]
         for n, fut in enumerate(as_completed(futs), 1):
             u, d = fut.result()
             if n % 250 == 0:
                 print(f"  yahoo {n}/{len(main_u)}", flush=True)
             if d is None:
-                fails += 1
-                continue
+                failed_syms.append(u)
+            else:
+                fetched[u["symbol"]] = (u, d)
+    if failed_syms:
+        print(f"  salvage pass for {len(failed_syms)} failures (serial, slow)", flush=True)
+        for u in failed_syms[:400]:
+            time.sleep(random.uniform(1.5, 2.5))
+            d = yahoo_daily(u["symbol"] + ".NS")
+            if d is not None:
+                fetched[u["symbol"]] = (u, d)
+    fails = len(main_u) - len(fetched)
+    for u, d in fetched.values():
             met = series_metrics(*d)
             if not met:
                 continue

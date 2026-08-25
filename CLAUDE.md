@@ -134,6 +134,16 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   corp_flag ("possible split/bonus, ATH base suspect") -> warning symbol on page + email.
 - Flags persist into history.json (KEEP list).
 
+## v6 (2026-08-25): runner Yahoo throttling fix
+- The 2026-08-21 scheduled run FAILED at "Run screen": Yahoo rate-limits GitHub runner IPs far
+  harder than residential ones -> >15% fetch failures -> pre-flight gate killed the run (site
+  and email correctly withheld). Fix: on runners (GITHUB_ACTIONS=true) use 4 workers + longer
+  jitter, and a SERIAL SALVAGE PASS (1.5-2.5s spacing, up to 400 symbols) re-fetches failures
+  BEFORE the 15% gate applies. Local runs keep 8 workers.
+- Failed "Run screen" = all later steps skipped = no email AND stale site. GitHub's own
+  workflow-failure notification email is the alert channel — Ashwani should keep repo
+  notifications on (github.com/settings/notifications, "Actions" -> email).
+
 ## Email rules (v5, 2026-08-15)
 - NO colors on <tr> — clients strip them (white-on-white header bug). Every color goes on the
   individual <td> as BOTH bgcolor attribute and inline style. Table-based layout only.
