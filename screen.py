@@ -422,8 +422,12 @@ def sync_checkout():
     import subprocess
     try:
         subprocess.run(["git", "fetch", "origin", "main"], check=True, timeout=60)
-        subprocess.run(["git", "reset", "-q", "--hard", "origin/main"], check=True, timeout=60)
-        print("checkout synced to origin/main", flush=True)
+        # MIXED reset only - NEVER --hard: seed_sme.py has already updated
+        # data/sme_prices.json in the working tree, and a hard reset reverts it to the
+        # committed version -> stale official closes -> audit gate fires
+        # (this exact bug killed the 2026-08-21 and first 2026-08-25 runs).
+        subprocess.run(["git", "reset", "-q", "origin/main"], check=True, timeout=60)
+        print("checkout synced to origin/main (working tree preserved)", flush=True)
     except Exception as e:
         print("checkout sync skipped:", e, flush=True)
 
@@ -443,6 +447,9 @@ def main():
     # (Yahoo supplies split-adjusted HISTORY; its latest close drifts 2-5% on smaller names)
     official_px, official_tag = latest_bhav_closes()
     gate(len(official_px) > 2000, "official bhavcopy for close-anchoring unavailable")
+    tag_age = (TODAY - datetime.strptime(official_tag, "%Y%m%d").date()).days
+    gate(tag_age <= 6, f"official closes STALE: bhavcopy {official_tag} is {tag_age} days old "
+                       f"(seed store not updating? check sync_checkout is NOT --hard)")
     print(f"official closes anchored to bhavcopy {official_tag} ({len(official_px)} symbols)", flush=True)
 
     candidates = []

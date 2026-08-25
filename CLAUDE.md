@@ -134,6 +134,16 @@ Pushing only .md files is safe (path filter excludes them... NOTE: workflow push
   corp_flag ("possible split/bonus, ATH base suspect") -> warning symbol on page + email.
 - Flags persist into history.json (KEEP list).
 
+## v6b (2026-08-25): THE REAL Friday-failure root cause
+- Both failed runs (2026-08-21 schedule, first 2026-08-25 push) died the same way: audit gate
+  "9 mismatches ... bhavcopy 20260814". Cause: sync_checkout() used git reset --HARD, which
+  reverted data/sme_prices.json to the committed version — WIPING the store update the seed
+  step had just made. Official closes stayed frozen at Aug-14 while Yahoo moved on -> honest
+  mismatch -> gate. Fix: MIXED reset (no --hard) preserves the working tree and is still
+  race-safe; plus a staleness gate (official tag must be <=6 days old) so this whole class of
+  bug can never slip through again. The initial Yahoo-throttling theory was WRONG (the salvage
+  pass from that theory stays — harmless robustness).
+
 ## v6 (2026-08-25): runner Yahoo throttling fix
 - The 2026-08-21 scheduled run FAILED at "Run screen": Yahoo rate-limits GitHub runner IPs far
   harder than residential ones -> >15% fetch failures -> pre-flight gate killed the run (site
